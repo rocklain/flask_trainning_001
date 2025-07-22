@@ -14,24 +14,22 @@ def product():
     product_dict = {"product_name":"computer1","product_price":"4300","product_maker":"maker1"}
     return render_template("product.html",products=product_list,product_dict=product_dict)
 
+@app.route("/user/<user_id>")
+def userid(user_id):
+    return "<h1>Your User ID is {0} {1} {2}</h1>".format(user_id[0],user_id[1],user_id[2])
+
+@app.route("/user")
+def user():
+    user_list = [
+        ["1","山田　太郎", "taro@test.com", "1"],
+        ["2","鈴木　花子", "hanako@test.com", "0"],
+        ["3","清水　義孝", "yoshitaka@test.com", "0"]
+    ]
+    return render_template("user.html", users=user_list)
+
 @app.errorhandler(404)
 def error_404(error):
     return render_template("error_pages/404.html"), 404
-
-# @app.route("/product/<product_id>")
-# def product(product_id):
-#     product_list = [
-#         ["1", "ノートパソコンA", "Core i5", "￥68,500"],
-#         ["2", "ノートパソコンB", "AMD Ryzen 5", "￥81,300"],
-#         ["3", "ノートパソコンC", "CeleronN4020", "￥64,300"]
-#     ]
-#     for product in product_list:
-#         if product_id in product:
-#             break
-#     product_name = product[1]
-#     product_cpu = product[2]
-#     product_price = product[3]
-#     return "Product Name: {0} <br> CPU: {1}<br> Price: {2}".format(product_name,product_cpu,product_price)
     
 if __name__ == "__main__":
     app.run(debug=True)
